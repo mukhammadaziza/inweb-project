@@ -23,7 +23,9 @@ class UpdatePageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string'],
+            'short_description' => ['nullable', 'string'],
+            'full_description' => ['nullable', 'string']
         ];
     }
 }
