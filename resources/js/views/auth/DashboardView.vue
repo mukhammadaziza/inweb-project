@@ -16,7 +16,7 @@
       </div>
 
       <div class="p-2">
-        <RouterLink to="/logout">Logout</RouterLink>
+        <button @click="logout">Logout</button>
       </div>
     </div>
 
@@ -30,6 +30,9 @@
 <script setup>
 import { ref, onMounted } from "vue"
 import api from "@/api/axios"
+import { useRouter } from "vue-router"
+
+const router = useRouter()
 
 const pages = ref([])
 const error = ref("")
@@ -43,6 +46,17 @@ async function getPages() {
   } catch (err) {
     error.value = "Failed to load pages."
   }
+}
+
+
+async function logout() {
+  try {
+    await api.post("/logout")
+  } catch (e) {
+    console.log(e)
+  }
+  localStorage.removeItem("token")
+  router.push("/login")
 }
 
 onMounted(getPages)

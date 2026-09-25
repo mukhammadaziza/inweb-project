@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
 
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
     Route::get('/pages', [PageController::class, 'index']);
     Route::get('/pages/{page}', [PageController::class, 'show']);
 
     Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
         Route::apiResource('categories', CategoryController::class);
 
         Route::post('/pages', [PageController::class, 'store']);
